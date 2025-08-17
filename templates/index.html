@@ -1,0 +1,21 @@
+{% extends 'alexienu/base.html' %}
+
+{% block content %}
+<h3>Account balances</h3>
+
+<table class="line-items">
+  {% for account in accounts %}
+  <tr>
+    <td><a href="{% url 'alexienu:account' account.name %}">{{ account.name }}</a></td>
+    <td class="row-value">{{ account.balance }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<hr>
+
+<h3>Latest transactions</h3>
+
+{% include 'alexienu/entries.html' %}
+
+{% endblock %}

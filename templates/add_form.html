@@ -1,0 +1,52 @@
+{% extends 'alexienu/base.html' %}
+
+{% block content %}
+<h3>Add transaction</h3>
+
+<form action="{% url 'alexienu:add' %}" method="POST">
+  {% csrf_token %}
+
+  <table class="add-transaction-form">
+    <tr>
+      <td>Description</td>
+      <td><input name="description" autofocus></td>
+    </tr>
+
+    <tr>
+      <td>Amount</td>
+      <td><input name="amount"></td>
+    </tr>
+
+    <tr>
+      <td>Debit</td>
+      <td>
+        <select name="debit_id">
+          <option value="0">Debit account</option>
+          {% include 'alexienu/account_select_elements.html' %}
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td>Credit</td>
+      <td>
+        <select name="credit_id">
+          <option value="0">Credit account</option>
+          {% include 'alexienu/account_select_elements.html' %}
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td><input type="submit"></td>
+      <td>&nbsp;</td>
+    </tr>
+  </table>
+</form>
+
+<hr>
+
+<h3>Latest transactions</h3>
+
+{% include 'alexienu/entries.html' %}
+{% endblock %}

@@ -1,0 +1,22 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'alexienu/css/alexienu.css' %}">
+    <title>AlexieNu</title>
+  </head>
+  <body>
+    <!-- header -->
+    <div class="header">
+      <a class="header-link" href="{% url "alexienu:index" %}">Account balances</a>
+      <a class="header-link" href="{% url "alexienu:add_form" %}">Add transaction</a>
+    </div>
+    <div class="main-content">
+      {% block content %}
+      {% endblock %}
+    </div>
+  </body>
+</html>

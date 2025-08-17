@@ -1,0 +1,13 @@
+<table class="line-items">
+  {% for row in line_items %}
+  <tr>
+    <td>{{ row.created_at|date:'Y-m-d' }}</td>
+    <td>{{ row.description }}</td>
+    <td class="row-value">{{ row.amount }}</td>
+    {% if row.debit %}
+    <td><a href="{% url "alexienu:account" row.debit %}">{{ row.debit }}</a></td>
+    <td><a href="{% url "alexienu:account" row.credit %}">{{ row.credit }}</a></td>
+    {% endif %}
+  </tr>
+  {% endfor %}
+</table>

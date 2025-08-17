@@ -1,0 +1,7 @@
+{% extends 'alexienu/base.html' %}
+
+{% block content %}
+<h3>Account: {{ account.name }} {{ account.balance }}</h3>
+
+{% include 'alexienu/entries.html' %}
+{% endblock %}
