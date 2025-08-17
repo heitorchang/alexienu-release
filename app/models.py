@@ -43,7 +43,7 @@ class Account(models.Model):
 
     def standard_line_items(self, journal_entries):
         '''Combine postings into a single line item, mapped by journal_entry.id'''
-        line_items = []
+        line_items = {}
         postings = (
             Posting.objects
             .filter(user=self.user, entry__in=journal_entries)
@@ -52,7 +52,7 @@ class Account(models.Model):
         )
         for posting in postings:
             # initialize dict item
-            line_item = {
+            line_items[posting.entry.id] = {
                 'created_at': posting.entry.created_at,
                 'description': posting.entry.description,
                 'amount': posting.entry.amount,
@@ -60,11 +60,10 @@ class Account(models.Model):
                 'credit': None,
             }
             if posting.is_debit:
-                line_item['debit'] = posting.account.name
+                line_items[posting.entry.id]['debit'] = posting.account.name
             else:
-                line_item['credit'] = posting.account.name
-            line_items.append(line_item)
-        return line_items
+                line_items[posting.entry.id]['credit'] = posting.account.name
+        return sorted(line_items.values(), key=itemgetter('created_at'), reverse=True)
 
 
 class JournalEntry(models.Model):
